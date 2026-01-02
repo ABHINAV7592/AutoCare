@@ -4,13 +4,9 @@ namespace service_booking.Models
 {
     public class User
     {
-        [Required]
         public string? name { get; set; }
-
-        [Required]
         public string? phone { get; set; }
-
-        [Required]
-        public DateTime date { get; set; }
+        public string? email { get; set; }
+        public string? password { get; set; }
     }
 }
