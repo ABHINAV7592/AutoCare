@@ -85,6 +85,33 @@ namespace service_booking.Models
                     con.Close();
                 }
             }
+        public LoginResult? Login(string email, string password)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("sp_Login", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@password", password);
+
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    return new LoginResult
+                    {
+                        reg_id = Convert.ToInt32(dr["reg_id"]),
+                        login_type = dr["login_type"].ToString()
+                    };
+                }
+
+                con.Close();
+                return null; 
+            }
         }
+
     }
+}
 

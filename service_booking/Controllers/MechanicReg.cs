@@ -12,7 +12,7 @@ namespace service_booking.Controllers
             _db = db;
         }
 
-        // 🔹 Load Registration Page
+        
         [HttpGet]
         public IActionResult Register()
         {
