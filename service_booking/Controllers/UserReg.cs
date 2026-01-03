@@ -3,32 +3,38 @@ using service_booking.Models;
 
 namespace service_booking.Controllers
 {
-    public class UserController : Controller
+    public class UserReg : Controller
     {
         private readonly UserDB _db;
 
-        public UserController(UserDB db)
+        public UserReg(UserDB db)
         {
             _db = db;
         }
 
-        [HttpPost]
-        public IActionResult Register(User clsobj)
+        [HttpGet]
+        public IActionResult Register()
         {
-            // 1️⃣ Get max reg_id
-            int mid = _db.GetMaxRegId();
+            return View("usrinsertpage_load");
+        }
 
+
+        [HttpPost]
+        public IActionResult Register(Models.UserRegistration clsobj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("usrinsertpage_load", clsobj);
+            }
+
+            int mid = _db.GetMaxRegId();
             int regid = (mid == 0) ? 1 : mid + 1;
 
-            // 2️⃣ Check email existence
             int emailCount = _db.GetEmailCount(clsobj.email, clsobj.password);
 
             if (emailCount == 0)
             {
-                // 3️⃣ Insert into Users table
                 _db.InsertUser(clsobj.name, clsobj.phone);
-
-                // 4️⃣ Insert into Login table
                 _db.InsertLogin(regid, clsobj.email, clsobj.password, "User");
 
                 ViewBag.Message = "Successfully Inserted";
@@ -40,6 +46,7 @@ namespace service_booking.Controllers
 
             return View("usrinsertpage_load", clsobj);
         }
+
     }
 }
 

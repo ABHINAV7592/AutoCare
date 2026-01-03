@@ -12,5 +12,12 @@ namespace service_booking.Models
 
         [Required]
         public string? expertise { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string? email { get; set; }
+
+        [Required]
+        public string? password { get; set; }
     }
 }

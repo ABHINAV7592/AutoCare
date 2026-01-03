@@ -2,7 +2,7 @@
 
 namespace service_booking.Models
 {
-    public class User
+    public class UserRegistration
     {
         public string? name { get; set; }
         public string? phone { get; set; }
