@@ -1,0 +1,62 @@
+﻿@model service_booking.Models.Mechanic
+
+@{
+    ViewData["Title"] = "Mechanic Registration";
+}
+
+<h2>Mechanic Registration</h2>
+
+<form asp-action="Register" asp-controller="MechanicReg" method="post">
+
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="name"></label>
+        <input asp-for="name" class="form-control" />
+        <span asp-validation-for="name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="phone"></label>
+        <input asp-for="phone" class="form-control" />
+        <span asp-validation-for="phone" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="expertise"></label>
+        <input asp-for="expertise" class="form-control" />
+        <span asp-validation-for="expertise" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="email"></label>
+        <input asp-for="email" type="email" class="form-control" />
+        <span asp-validation-for="email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="password"></label>
+        <input asp-for="password" type="password" class="form-control" />
+        <span asp-validation-for="password" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">
+        Register Mechanic
+    </button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <br />
+    <div class="alert alert-info">
+        @ViewBag.Message
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

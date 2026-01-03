@@ -4,7 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // ✅ Register services FIRST
 builder.Services.AddControllersWithViews();
+
+// ✅ DB classes
 builder.Services.AddScoped<UserDB>();
+builder.Services.AddScoped<MechanicDB>();
 
 var app = builder.Build();
 
@@ -19,6 +22,6 @@ app.UseAuthorization();
 // Routing
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=UserReg}/{action=Register}/{id?}");
+    pattern: "{controller=MechanicReg}/{action=Register}/{id?}");
 
 app.Run();

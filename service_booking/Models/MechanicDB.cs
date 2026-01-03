@@ -49,7 +49,6 @@ namespace service_booking.Models
             }
         }
 
-        // 🔹 Insert Mechanic
         public void InsertMechanic(string name, string phone, string expertise)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
