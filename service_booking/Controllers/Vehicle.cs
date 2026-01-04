@@ -3,11 +3,11 @@ using service_booking.Models;
 
 namespace service_booking.Controllers
 {
-    public class VehicleController : Controller
+    public class Vehicle : Controller
     {
         private readonly VehicleDB _db;
 
-        public VehicleController(VehicleDB db)
+        public Vehicle(VehicleDB db)
         {
             _db = db;
         }
@@ -19,7 +19,7 @@ namespace service_booking.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Vehicle model)
+        public IActionResult Add(Models.Vehicle model)
         {
             if (!ModelState.IsValid)
                 return View(model);

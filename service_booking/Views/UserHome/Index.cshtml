@@ -1,9 +1,25 @@
-﻿<h2>User Dashboard</h2>
+﻿@{
+    ViewData["Title"] = "User Dashboard";
+}
 
-<ul>
-    <li><a asp-controller="Vehicle" asp-action="Add">Add Vehicle</a></li>
-    <li><a asp-controller="Vehicle" asp-action="List">My Vehicles</a></li>
-    <li><a asp-controller="Booking" asp-action="Create">Book Service</a></li>
-    <li><a asp-controller="Booking" asp-action="History">Booking History</a></li>
-    <li><a asp-controller="Login" asp-action="Index">Logout</a></li>
-</ul>
+<div class="container mt-4">
+    <h2 class="mb-4">User Dashboard</h2>
+
+    <div class="list-group">
+        <a asp-controller="Vehicle" asp-action="Add" class="list-group-item list-group-item-action">
+            ➕ Add Vehicle
+        </a>
+        <a asp-controller="Vehicle" asp-action="List" class="list-group-item list-group-item-action">
+            🚗 My Vehicles
+        </a>
+        <a asp-controller="Booking" asp-action="Create" class="list-group-item list-group-item-action">
+            🛠️ Book Service
+        </a>
+        <a asp-controller="Booking" asp-action="History" class="list-group-item list-group-item-action">
+            📜 Booking History
+        </a>
+        <a asp-controller="Login" asp-action="Index" class="list-group-item list-group-item-action text-danger">
+            🚪 Logout
+        </a>
+    </div>
+</div>

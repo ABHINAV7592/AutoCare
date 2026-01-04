@@ -1,0 +1,32 @@
+﻿@model List<service_booking.Models.Bookings>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Booking History</h2>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Booking ID</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in Model)
+            {
+                <tr>
+                    <td>@b.booking_id</td>
+                    <td>
+                        <span class="badge
+                            @(b.booking_status == "Completed" ? "bg-success" :
+                                                        b.booking_status == "In Progress" ? "bg-warning text-dark" :
+                                                        "bg-secondary")">
+                            @b.booking_status
+                        </span>
+                    </td>
+                    <td>@b.date.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

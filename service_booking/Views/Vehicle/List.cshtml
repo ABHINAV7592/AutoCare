@@ -1,0 +1,25 @@
+﻿@model List<service_booking.Models.Vehicle>
+
+<div class="container mt-4">
+    <h2 class="mb-4">My Vehicles</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Vehicle Number</th>
+                <th>Model</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model)
+            {
+                <tr>
+                    <td>@v.vehicle_number</td>
+                    <td>@v.model</td>
+                    <td>@v.brand</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

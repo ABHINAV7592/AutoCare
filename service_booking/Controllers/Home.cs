@@ -4,7 +4,7 @@ using service_booking.Models;
 
 namespace service_booking.Controllers
 {
-    public class HomeController : Controller
+    public class Home : Controller
     {
         public IActionResult Index()
         {

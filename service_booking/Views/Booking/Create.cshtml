@@ -1,0 +1,50 @@
+﻿@model service_booking.Models.BookServiceView
+
+<div class="container mt-4">
+    <h2 class="mb-4">Book Service</h2>
+
+    <form asp-action="Create" method="post" class="card p-4 shadow-sm">
+
+        <div class="mb-3">
+            <label class="form-label">Select Vehicle</label>
+            <select asp-for="vehicle_id" class="form-select">
+                <option value="">-- Select Vehicle --</option>
+                @foreach (var v in Model.Vehicles)
+                {
+                    <option value="@v.vehicle_id">@v.vehicle_number</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Select Service</label>
+            <select asp-for="service_type_id" class="form-select">
+                <option value="">-- Select Service --</option>
+                @foreach (var s in Model.Services)
+                {
+                    <option value="@s.service_type_id">
+                        @s.service_name (₹@s.cost)
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Select Time Slot</label>
+            <select asp-for="slot_id" class="form-select">
+                <option value="">-- Select Slot --</option>
+                @foreach (var t in Model.Slots)
+                {
+                    <option value="@t.slot_id">
+                        @t.slot_date.ToShortDateString()
+                        (@t.start_time - @t.end_time)
+                    </option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Book Service
+        </button>
+    </form>
+</div>

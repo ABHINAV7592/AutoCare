@@ -2,16 +2,20 @@
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ Register services FIRST
+
 builder.Services.AddControllersWithViews();
 
-// ✅ DB classes
+
 builder.Services.AddScoped<UserDB>();
 builder.Services.AddScoped<MechanicDB>();
+builder.Services.AddScoped<VehicleDB>();
+builder.Services.AddScoped<ServiceDB>();
+builder.Services.AddScoped<SlotDB>();
+builder.Services.AddScoped<BookingDB>();
 
 var app = builder.Build();
 
-// Middleware pipeline
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -19,7 +23,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-// Routing
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Index}/{id?}");

@@ -3,11 +3,11 @@ using service_booking.Models;
 
 namespace service_booking.Controllers
 {
-    public class LoginController : Controller
+    public class Login : Controller
     {
         private readonly UserDB _db;
 
-        public LoginController(UserDB db)
+        public Login(UserDB db)
         {
             _db = db;
         }
@@ -21,7 +21,7 @@ namespace service_booking.Controllers
 
         
         [HttpPost]
-        public IActionResult Index(Login model)
+        public IActionResult Index(Models.Login model)
         {
             if (!ModelState.IsValid)
                 return View(model);
