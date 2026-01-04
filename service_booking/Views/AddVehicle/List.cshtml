@@ -1,0 +1,60 @@
+﻿@model List<service_booking.Models.VehicleRegister>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Vehicles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>My Vehicles</h3>
+            <a href="/AddVehicle/Add" class="btn btn-success">
+                + Add Vehicle
+            </a>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-body p-0">
+                <table class="table table-bordered table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Vehicle Number</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Manufacturing Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (var v in Model)
+                            {
+                                <tr>
+                                    <td>@v.vehicle_number</td>
+                                    <td>@v.brand</td>
+                                    <td>@v.model</td>
+                                    <td>@v.manufacturing_year</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">
+                                    No vehicles found
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

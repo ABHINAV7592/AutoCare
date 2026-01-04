@@ -5,12 +5,12 @@ namespace service_booking.Controllers
 {
     public class BookingController : Controller
     {
-        private readonly VehicleDB _vehicleDB;
+        private readonly VehicleRegDB _vehicleDB;
         private readonly ServiceDB _serviceDB;
         private readonly SlotDB _slotDB;
         private readonly BookingDB _bookingDB;
 
-        public BookingController(VehicleDB v, ServiceDB s, SlotDB sl, BookingDB b)
+        public BookingController(VehicleRegDB v, ServiceDB s, SlotDB sl, BookingDB b)
         {
             _vehicleDB = v;
             _serviceDB = s;
@@ -25,7 +25,7 @@ namespace service_booking.Controllers
 
             var vm = new BookServiceView
             {
-                Vehicles = _vehicleDB.GetVehiclesByUser(userId),
+                Vehicles = _vehicleDB.GetVehicles(userId),
                 Services = _serviceDB.GetServices(),
                 Slots = _slotDB.GetAvailableSlots()
             };

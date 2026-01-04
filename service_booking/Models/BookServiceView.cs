@@ -7,7 +7,7 @@
         public int slot_id { get; set; }
 
         
-        public List<Vehicle> Vehicles { get; set; }
+        public List<VehicleRegister> Vehicles { get; set; }
         public List<ServiceType> Services { get; set; }
         public List<TimeSlot> Slots { get; set; }
     }

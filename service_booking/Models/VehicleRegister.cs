@@ -1,25 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace service_booking.Models
+﻿namespace service_booking.Models
 {
-    public class Vehicle
+    public class VehicleRegister
     {
-
         public int vehicle_id { get; set; }
-
         public int user_id { get; set; }
 
-        [Required]
         public string? vehicle_number { get; set; }
-
-        [Required]
         public string? brand { get; set; }
-
-        [Required]
         public string? model { get; set; }
-
-        [Required]
         public int manufacturing_year { get; set; }
     }
 }

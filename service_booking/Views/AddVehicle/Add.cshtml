@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Vehicle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Add Vehicle</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <form action="/AddVehicle/Add" method="post">
+
+                            <div class="mb-3">
+                                <label class="form-label">Vehicle Number</label>
+                                <input type="text" name="vehicle_number" class="form-control" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Brand</label>
+                                <input type="text" name="brand" class="form-control" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Model</label>
+                                <input type="text" name="model" class="form-control" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Manufacturing Year</label>
+                                <input type="number" name="manufacturing_year" class="form-control" required />
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    Add Vehicle
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
