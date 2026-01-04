@@ -5,19 +5,17 @@ namespace service_booking.Models
 {
     public class Vehicle
     {
-        [Required]
-        public int user_id { get; set; }
+        public int vehicle_id { get; set; }
 
         [Required]
         public string? vehicle_number { get; set; }
 
         [Required]
-        public string? brand { get; set; }
-
-        [Required]
         public string? model { get; set; }
 
         [Required]
-        public int manufacturing_year { get; set; }
+        public string? brand { get; set; }
+
+        public int user_id { get; set; }
     }
 }
