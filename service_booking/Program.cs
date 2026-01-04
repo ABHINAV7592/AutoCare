@@ -22,6 +22,6 @@ app.UseAuthorization();
 // Routing
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=MechanicReg}/{action=Register}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();

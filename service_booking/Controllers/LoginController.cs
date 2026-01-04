@@ -34,7 +34,7 @@ namespace service_booking.Controllers
                 return View(model);
             }
 
-            // Redirect based on role
+            
             if (result.login_type == "User")
                 return RedirectToAction("Index", "UserHome");
 
