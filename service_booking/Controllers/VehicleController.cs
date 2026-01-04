@@ -18,26 +18,47 @@ namespace service_booking.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Add(Models.Vehicle model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
+        //[HttpPost]
+        //public IActionResult Add(Vehicle model)
+        //{
 
-            model.user_id = 1; 
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    model.user_id = 1;
+
+
+        //    _db.InsertVehicle(model);
+
+        //    return RedirectToAction("List");
+        //}
+        [HttpPost]
+        public IActionResult Add(Vehicle model)
+        {
+            if (model.manufacturing_year == 0)
+                throw new Exception("Model binding failed: manufacturing_year = 0");
+
+            model.user_id = 1;
             _db.InsertVehicle(model);
 
-            return RedirectToAction("Index", "UserHome");
+            return RedirectToAction("List");
         }
 
+
+
+        [HttpGet]
         public IActionResult List()
         {
             int userId = 1; 
+
             var vehicles = _db.GetVehiclesByUser(userId);
+
             return View(vehicles);
         }
-
-
     }
+
 }
+
 
