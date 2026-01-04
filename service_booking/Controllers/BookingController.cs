@@ -3,14 +3,14 @@ using service_booking.Models;
 
 namespace service_booking.Controllers
 {
-    public class Booking : Controller
+    public class BookingController : Controller
     {
         private readonly VehicleDB _vehicleDB;
         private readonly ServiceDB _serviceDB;
         private readonly SlotDB _slotDB;
         private readonly BookingDB _bookingDB;
 
-        public Booking(VehicleDB v, ServiceDB s, SlotDB sl, BookingDB b)
+        public BookingController(VehicleDB v, ServiceDB s, SlotDB sl, BookingDB b)
         {
             _vehicleDB = v;
             _serviceDB = s;

@@ -3,11 +3,11 @@ using service_booking.Models;
 
 namespace service_booking.Controllers
 {
-    public class Login : Controller
+    public class LoginController : Controller
     {
         private readonly UserDB _db;
 
-        public Login(UserDB db)
+        public LoginController(UserDB db)
         {
             _db = db;
         }

@@ -3,11 +3,11 @@ using service_booking.Models;
 
 namespace service_booking.Controllers
 {
-    public class Vehicle : Controller
+    public class VehicleController : Controller
     {
         private readonly VehicleDB _db;
 
-        public Vehicle(VehicleDB db)
+        public VehicleController(VehicleDB db)
         {
             _db = db;
         }
@@ -36,6 +36,8 @@ namespace service_booking.Controllers
             var vehicles = _db.GetVehiclesByUser(userId);
             return View(vehicles);
         }
+
+
     }
 }
 

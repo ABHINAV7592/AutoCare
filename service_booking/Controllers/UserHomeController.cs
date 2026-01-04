@@ -2,7 +2,7 @@
 
 namespace service_booking.Controllers
 {
-    public class UserHome : Controller
+    public class UserHomeController : Controller
     {
         public IActionResult Index()
         {

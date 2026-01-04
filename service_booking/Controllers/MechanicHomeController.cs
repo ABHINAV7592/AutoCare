@@ -2,7 +2,7 @@
 
 namespace service_booking.Controllers
 {
-    public class MechanicHome : Controller
+    public class MechanicHomeController : Controller
     {
         public IActionResult Index()
         {

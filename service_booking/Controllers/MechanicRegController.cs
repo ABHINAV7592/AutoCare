@@ -3,11 +3,11 @@ using service_booking.Models;
 
 namespace service_booking.Controllers
 {
-    public class MechanicReg : Controller
+    public class MechanicRegController : Controller
     {
         private readonly MechanicDB _db;
 
-        public MechanicReg(MechanicDB db)
+        public MechanicRegController(MechanicDB db)
         {
             _db = db;
         }
