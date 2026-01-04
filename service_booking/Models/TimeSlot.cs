@@ -4,6 +4,7 @@ namespace service_booking.Models
 {
     public class TimeSlot
     {
+        public int slot_id { get; set; }
         [Required]
         public DateTime slot_date { get; set; }
 
