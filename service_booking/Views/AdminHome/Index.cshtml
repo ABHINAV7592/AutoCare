@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row">
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Service Management</h5>
+                <p class="card-text">
+                    Add and manage service categories and pricing.
+                </p>
+                <a asp-controller="AdminService" asp-action="Index"
+                   class="btn btn-dark">
+                    Manage Services
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Time Slot Management</h5>
+                <p class="card-text">
+                    Create and manage available service time slots.
+                </p>
+                <a asp-controller="AdminSlot" asp-action="Index"
+                   class="btn btn-dark">
+                    Manage Time Slots
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Service Bookings</h5>
+                <p class="card-text">
+                    View all bookings and update service status.
+                </p>
+                <a asp-controller="AdminBooking" asp-action="Index"
+                   class="btn btn-dark">
+                    View Bookings
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Reports</h5>
+                <p class="card-text">
+                    Generate service and booking reports.
+                </p>
+                <a asp-controller="AdminReport" asp-action="Index"
+                   class="btn btn-dark">
+                    View Reports
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>

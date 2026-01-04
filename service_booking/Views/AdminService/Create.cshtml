@@ -1,0 +1,42 @@
+﻿@model service_booking.Models.ServiceType
+
+@{
+    ViewData["Title"] = "Add Service Category";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-4">Add Service Category</h3>
+
+    <form asp-action="Create" method="post">
+
+        <div class="mb-3">
+            <label class="form-label">Service Name</label>
+            <input asp-for="service_name" class="form-control" required />
+            <span asp-validation-for="service_name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea asp-for="description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Cost</label>
+            <input asp-for="cost" type="number" class="form-control" required />
+            <span asp-validation-for="cost" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Save
+        </button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">
+            Back
+        </a>
+
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -15,16 +15,15 @@ namespace service_booking.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View("usrinsertpage_load");
+            return View(); 
         }
 
-
         [HttpPost]
-        public IActionResult Register(Models.UserRegistration clsobj)
+        public IActionResult Register(UserRegistration clsobj)
         {
             if (!ModelState.IsValid)
             {
-                return View("usrinsertpage_load", clsobj);
+                return View(clsobj); 
             }
 
             int mid = _db.GetMaxRegId();
@@ -37,16 +36,15 @@ namespace service_booking.Controllers
                 _db.InsertUser(clsobj.name, clsobj.phone);
                 _db.InsertLogin(regid, clsobj.email, clsobj.password, "User");
 
-                ViewBag.Message = "Successfully Inserted";
+                ViewBag.Message = "Successfully Registered";
+                ModelState.Clear();
             }
             else
             {
                 ViewBag.Message = "Email Already Exists";
             }
 
-            return View("usrinsertpage_load", clsobj);
+            return View(); 
         }
-
     }
 }
-

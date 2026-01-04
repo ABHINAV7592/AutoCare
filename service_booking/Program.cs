@@ -12,6 +12,10 @@ builder.Services.AddScoped<VehicleRegDB>();
 builder.Services.AddScoped<ServiceDB>();
 builder.Services.AddScoped<SlotDB>();
 builder.Services.AddScoped<BookingDB>();
+builder.Services.AddScoped<AdminBookingDB>();
+builder.Services.AddScoped<AdminReportDB>();
+
+builder.Services.AddSession();
 
 
 var app = builder.Build();
@@ -21,7 +25,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 

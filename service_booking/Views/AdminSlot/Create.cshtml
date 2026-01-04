@@ -1,0 +1,30 @@
+﻿@model service_booking.Models.TimeSlot
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>Add Time Slot</h3>
+
+<form method="post">
+    <div class="mb-3">
+        <label>Date</label>
+        <input asp-for="slot_date" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Start Time</label>
+        <input asp-for="start_time" type="time" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>End Time</label>
+        <input asp-for="end_time" type="time" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Max Bookings</label>
+        <input asp-for="max_bookings" type="number" class="form-control" />
+    </div>
+
+    <button class="btn btn-success">Save</button>
+</form>

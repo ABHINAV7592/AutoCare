@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
 <h2>Login</h2>
@@ -47,12 +48,20 @@
         <a asp-controller="UserReg" asp-action="Register">
             Register as User
         </a>
+
     </p>
 
     <p>
         New mechanic?
         <a asp-controller="MechanicReg" asp-action="Register">
             Register as Mechanic
+        </a>
+    </p>
+
+    <p>
+        Admin?
+        <a asp-controller="AdminReg" asp-action="Register">
+            Register as Admin
         </a>
     </p>
 </div>

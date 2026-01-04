@@ -12,16 +12,14 @@ namespace service_booking.Controllers
             _db = db;
         }
 
-      
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        
         [HttpPost]
-        public IActionResult Index(Models.Login model)
+        public IActionResult Index(Login model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -33,16 +31,34 @@ namespace service_booking.Controllers
                 ViewBag.Message = "Invalid Email or Password";
                 return View(model);
             }
+            if (result.login_type == "Admin")
+            {
+                HttpContext.Session.SetString("role", "Admin");
+                return RedirectToAction("Index", "AdminHome");
+            }
 
-            
             if (result.login_type == "User")
+            {
+                HttpContext.Session.SetString("role", "User");
                 return RedirectToAction("Index", "UserHome");
+            }
 
             if (result.login_type == "Mechanic")
+            {
+                HttpContext.Session.SetString("role", "Mechanic");
                 return RedirectToAction("Index", "MechanicHome");
+            }
 
             ViewBag.Message = "Invalid login type";
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();   
+            return RedirectToAction("Index", "Login");
+        }
+
     }
 }

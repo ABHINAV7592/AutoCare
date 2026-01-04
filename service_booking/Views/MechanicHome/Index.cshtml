@@ -1,0 +1,65 @@
+﻿@model List<service_booking.Models.Bookings>
+
+@{
+    ViewData["Title"] = "Mechanic Dashboard";
+    Layout = "~/Views/Shared/_MechanicLayout.cshtml";
+}
+
+<h3 class="mb-4">Assigned Service Jobs</h3>
+
+<table class="table table-bordered table-striped align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Booking ID</th>
+            <th>User ID</th>
+            <th>Vehicle ID</th>
+            <th>Service ID</th>
+            <th>Current Status</th>
+            <th>Update Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var b in Model)
+        {
+            <tr>
+                <td>@b.booking_id</td>
+                <td>@b.user_id</td>
+                <td>@b.vehicle_id</td>
+                <td>@b.service_type_id</td>
+                <td>
+                    <span class="badge
+                            @(b.booking_status == "Completed" ? "bg-success" :
+                                                    b.booking_status == "In Progress" ? "bg-warning text-dark" :
+                                                    "bg-secondary")">
+                        @b.booking_status
+                    </span>
+                </td>
+
+                <td>
+                    <form asp-action="UpdateStatus"
+                          asp-controller="MechanicHome"
+                          method="post"
+                          class="d-flex gap-2">
+
+                        <input type="hidden" name="booking_id" value="@b.booking_id" />
+
+                        <select name="booking_status"
+                                class="form-select form-select-sm"
+                                @(b.booking_status == "Completed" ? "disabled" : "")>
+                            <option value="Pending" selected="@(b.booking_status == "Pending")">Pending</option>
+                            <option value="In Progress" selected="@(b.booking_status == "In Progress")">In Progress</option>
+                            <option value="Completed" selected="@(b.booking_status == "Completed")">Completed</option>
+                        </select>
+
+                        <button type="submit"
+                                class="btn btn-success btn-sm"
+                                @(b.booking_status == "Completed" ? "disabled" : "")>
+                            Update
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,78 @@
+﻿@model List<service_booking.Models.AdminBookingView>
+
+@{
+    ViewData["Title"] = "All Service Bookings";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-4">All Service Bookings</h3>
+
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>User</th>
+                <th>Vehicle</th>
+                <th>Service</th>
+                <th>Current Status</th>
+                <th>Update Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var b in Model)
+            {
+                var status = b.booking_status?.Trim();   
+
+                <tr>
+                    <td>@b.user_name</td>
+                    <td>@b.vehicle_number</td>
+                    <td>@b.service_name</td>
+
+                    <td>
+                        <span class="badge
+                                @(status == "Completed" ? "bg-success" :
+                                                            status == "In Progress" ? "bg-warning text-dark" :
+                                                            "bg-secondary")">
+                            @status
+                        </span>
+                    </td>
+
+                    <td>
+                        <form asp-action="UpdateStatus"
+                              asp-controller="AdminBooking"
+                              method="post"
+                              class="d-flex gap-2">
+
+                            <input type="hidden" name="booking_id" value="@b.booking_id" />
+
+                            <select name="booking_status"
+                                    class="form-select form-select-sm">
+
+                                <option value="Pending"
+                                        selected="@(status == "Pending")">
+                                    Pending
+                                </option>
+
+                                <option value="In Progress"
+                                        selected="@(status == "In Progress")">
+                                    In Progress
+                                </option>
+
+                                <option value="Completed"
+                                        selected="@(status == "Completed")">
+                                    Completed
+                                </option>
+                            </select>
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-success">
+                                Update
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

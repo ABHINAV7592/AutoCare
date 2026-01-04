@@ -1,0 +1,32 @@
+﻿@model List<service_booking.Models.ServiceType>
+
+@{
+    ViewData["Title"] = "Service Categories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>Service Categories</h3>
+
+    <a asp-action="Create" class="btn btn-primary mb-3">Add Service</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Service Name</th>
+                <th>Description</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in Model)
+            {
+                <tr>
+                    <td>@s.service_name</td>
+                    <td>@s.description</td>
+                    <td>₹ @s.cost</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

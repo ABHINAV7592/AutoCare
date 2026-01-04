@@ -1,0 +1,45 @@
+﻿@model service_booking.Models.Login
+
+@{
+    ViewData["Title"] = "Admin Registration";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="text-center mb-4">
+    <h4 class="fw-bold text-dark">Admin Registration</h4>
+</div>
+
+<form asp-action="Register" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input asp-for="email"
+               class="form-control"
+               type="email"
+               placeholder="Enter admin email"
+               required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input asp-for="password"
+               class="form-control"
+               type="password"
+               placeholder="Enter password"
+               required />
+    </div>
+
+    <div class="d-grid">
+        <button type="submit" class="btn btn-dark">
+            Register Admin
+        </button>
+    </div>
+</form>
+
+<hr />
+
+<div class="text-center">
+    <a asp-controller="Login" asp-action="Index">
+        Back to Login
+    </a>
+</div>

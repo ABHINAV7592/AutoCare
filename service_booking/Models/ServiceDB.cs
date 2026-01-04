@@ -17,7 +17,7 @@ namespace service_booking.Models
             List<ServiceType> list = new();
 
             using SqlConnection con = new SqlConnection(_connectionString);
-            SqlCommand cmd = new SqlCommand("sp_GetServiceTypes", con);
+            SqlCommand cmd = new SqlCommand("sp_GetAllServiceTypes", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             con.Open();
@@ -26,13 +26,27 @@ namespace service_booking.Models
             {
                 list.Add(new ServiceType
                 {
-                    service_type_id = (int)dr["service_type_id"],
+                    service_type_id = Convert.ToInt32(dr["service_type_id"]),
                     service_name = dr["service_name"].ToString(),
                     description = dr["description"].ToString(),
-                    cost = (decimal)dr["cost"]
+                    cost = Convert.ToDecimal(dr["cost"])
                 });
             }
             return list;
+        }
+
+        public void InsertService(ServiceType service)
+        {
+            using SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand("sp_InsertServiceType", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@service_name", service.service_name);
+            cmd.Parameters.AddWithValue("@description", service.description);
+            cmd.Parameters.AddWithValue("@cost", service.cost);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
         }
     }
 }

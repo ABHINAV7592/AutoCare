@@ -1,0 +1,26 @@
+﻿@model List<service_booking.Models.TimeSlot>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>Time Slots</h3>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Add Slot</a>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Date</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Max Bookings</th>
+    </tr>
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.slot_date.ToShortDateString()</td>
+            <td>@s.start_time</td>
+            <td>@s.end_time</td>
+            <td>@s.max_bookings</td>
+        </tr>
+    }
+</table>
