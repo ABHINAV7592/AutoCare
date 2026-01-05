@@ -75,6 +75,7 @@ namespace service_booking.Models
 
             con.Open();
             cmd.ExecuteNonQuery();
+            con.Close();
         }
     }
 }
