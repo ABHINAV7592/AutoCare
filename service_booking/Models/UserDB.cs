@@ -62,6 +62,7 @@ namespace service_booking.Models
 
             con.Open();
             return Convert.ToInt32(cmd.ExecuteScalar());
+            con.Close();
         }
 
 
@@ -105,7 +106,7 @@ namespace service_booking.Models
                     login_type = dr["login_type"].ToString()
                 };
             }
-
+            con.Close();
             return null;
         }
 

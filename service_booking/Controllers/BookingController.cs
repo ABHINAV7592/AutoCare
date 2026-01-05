@@ -40,7 +40,7 @@ namespace service_booking.Controllers
 
             return View(vm);
         }
-        //
+        
          
         [HttpPost]
         public IActionResult Create(BookServiceView model)
@@ -49,7 +49,6 @@ namespace service_booking.Controllers
             if (userId == null)
                 return RedirectToAction("Index", "Login");
 
-            // 🔴 DEBUG CHECK
             if (model.vehicle_id == 0 || model.service_type_id == 0 || model.slot_id == 0)
             {
                 throw new Exception(
