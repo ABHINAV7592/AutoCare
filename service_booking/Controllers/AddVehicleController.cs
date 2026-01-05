@@ -19,19 +19,18 @@ namespace service_booking.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(VehicleRegister model)
+        public IActionResult Add(VehicleRegister mod)
         {
-            
-            if (string.IsNullOrEmpty(model.vehicle_number))
+            if (!ModelState.IsValid)
             {
-                return Content("Vehicle Number not received");
+                return View(mod);
             }
 
-            model.user_id = 1;
+            mod.user_id = 1;
 
-            _db.InsertVehicle(model);
+            _db.InsertVehicle(mod);
 
-            return RedirectToAction("List");
+            return RedirectToAction(nameof(List));
         }
 
         [HttpGet]

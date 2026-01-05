@@ -32,6 +32,7 @@ namespace service_booking.Models
                     cost = Convert.ToDecimal(dr["cost"])
                 });
             }
+            con.Close();
             return list;
         }
 
@@ -47,6 +48,7 @@ namespace service_booking.Models
 
             con.Open();
             cmd.ExecuteNonQuery();
+            con.Close();
         }
     }
 }

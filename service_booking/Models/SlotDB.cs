@@ -33,6 +33,7 @@ namespace service_booking.Models
                     max_bookings = Convert.ToInt32(dr["max_bookings"])
                 });
             }
+            con.Close();
             return list;
         }
 
@@ -57,6 +58,7 @@ namespace service_booking.Models
                     max_bookings = Convert.ToInt32(dr["max_bookings"])
                 });
             }
+            con.Close();
             return list;
         }
 

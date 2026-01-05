@@ -12,25 +12,24 @@ namespace service_booking.Models
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        // INSERT VEHICLE
-        public void InsertVehicle(VehicleRegister v)
+        public void InsertVehicle(VehicleRegister model)
         {
             using SqlConnection con = new SqlConnection(_connectionString);
             using SqlCommand cmd = new SqlCommand("sp_InsertVehicle", con);
 
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@user_id", SqlDbType.Int).Value = v.user_id;
-            cmd.Parameters.Add("@vehicle_number", SqlDbType.NVarChar, 50).Value = v.vehicle_number;
-            cmd.Parameters.Add("@brand", SqlDbType.NVarChar, 50).Value = v.brand;
-            cmd.Parameters.Add("@model", SqlDbType.NVarChar, 50).Value = v.model;
-            cmd.Parameters.Add("@manufacturing_year", SqlDbType.Int).Value = v.manufacturing_year;
+            cmd.Parameters.Add("@user_id", SqlDbType.Int).Value = model.user_id;
+            cmd.Parameters.Add("@vehicle_number", SqlDbType.NVarChar).Value = model.vehicle_number ?? "";
+            cmd.Parameters.Add("@brand", SqlDbType.NVarChar).Value = model.brand ?? "";
+            cmd.Parameters.Add("@model", SqlDbType.NVarChar).Value = model.model ?? "";
+            cmd.Parameters.Add("@manufacturing_year", SqlDbType.Int).Value = model.manufacturing_year;
 
             con.Open();
             cmd.ExecuteNonQuery();
+            con.Close();
         }
 
-        // GET VEHICLES BY USER
         public List<VehicleRegister> GetVehicles(int userId)
         {
             List<VehicleRegister> list = new();
@@ -48,14 +47,15 @@ namespace service_booking.Models
             {
                 list.Add(new VehicleRegister
                 {
-                    vehicle_id = (int)dr["vehicle_id"],
-                    user_id = (int)dr["user_id"],
+                    vehicle_id = Convert.ToInt32(dr["vehicle_id"]),
+                    user_id = Convert.ToInt32(dr["user_id"]),
                     vehicle_number = dr["vehicle_number"].ToString(),
                     brand = dr["brand"].ToString(),
                     model = dr["model"].ToString(),
-                    manufacturing_year = (int)dr["manufacturing_year"]
+                    manufacturing_year = Convert.ToInt32(dr["manufacturing_year"])
                 });
             }
+            con.Close();
 
             return list;
         }

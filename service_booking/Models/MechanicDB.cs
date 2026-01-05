@@ -51,6 +51,7 @@ namespace service_booking.Models
 
             con.Open();
             cmd.ExecuteNonQuery();
+            con.Close();
         }
 
         public void InsertLogin(int regId, string email, string password)
@@ -66,6 +67,7 @@ namespace service_booking.Models
 
             con.Open();
             cmd.ExecuteNonQuery();
+            con.Close();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace service_booking.Models
                     booking_count = (int)dr["booking_count"]
                 });
             }
-
+            con.Close();
             return list;
         }
     }

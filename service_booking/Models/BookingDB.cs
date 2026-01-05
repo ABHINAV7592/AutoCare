@@ -62,6 +62,7 @@ namespace service_booking.Models
 
             con.Open();
             cmd.ExecuteNonQuery();
+            con.Close();
         }
 
         public List<Bookings> GetAllBookingsForMechanic()
@@ -88,7 +89,7 @@ namespace service_booking.Models
                     date = Convert.ToDateTime(dr["date"])
                 });
             }
-
+            con.Close();
             return list;
         }
 
