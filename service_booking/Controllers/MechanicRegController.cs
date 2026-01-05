@@ -12,14 +12,12 @@ namespace service_booking.Controllers
             _db = db;
         }
 
-        
         [HttpGet]
         public IActionResult Register()
         {
             return View("mechanic_register");
         }
 
-        
         [HttpPost]
         public IActionResult Register(Mechanic clsobj)
         {
@@ -28,23 +26,23 @@ namespace service_booking.Controllers
                 return View("mechanic_register", clsobj);
             }
 
-           
-            int emailCount = _db.GetEmailCount(clsobj.email,clsobj.password);
+            int emailCount = _db.CheckEmailExists(clsobj.email);
 
             if (emailCount > 0)
             {
-                ViewBag.Message = "Email Already Exists";
+                ViewBag.Message = "Email already exists";
                 return View("mechanic_register", clsobj);
             }
 
-            int mid = _db.GetMaxRegId();
-            int regid = (mid == 0) ? 1 : mid + 1;
+            int mechanicId = _db.InsertMechanic(
+                clsobj.name,
+                clsobj.phone,
+                clsobj.expertise
+            );
 
-            _db.InsertMechanic(clsobj.name, clsobj.phone, clsobj.expertise);
+            _db.InsertLogin(mechanicId, clsobj.email, clsobj.password);
 
-            _db.InsertLogin(regid, clsobj.email, clsobj.password);
-
-            ViewBag.Message = "Mechanic Registered Successfully";
+            ViewBag.Message = "Mechanic registered successfully";
             ModelState.Clear();
 
             return View("mechanic_register");

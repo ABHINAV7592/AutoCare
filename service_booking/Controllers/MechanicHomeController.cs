@@ -1,29 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using service_booking.Models;
 
-namespace service_booking.Controllers
+public class MechanicHomeController : Controller
 {
-    public class MechanicHomeController : Controller
+    private readonly BookingDB _bookingDB;
+
+    public MechanicHomeController(BookingDB bookingDB)
     {
-        private readonly BookingDB _db;
+        _bookingDB = bookingDB;
+    }
 
-        public MechanicHomeController(BookingDB db)
-        {
-            _db = db;
-        }
+    public IActionResult Index()
+    {
+        if (HttpContext.Session.GetString("Role") != "Mechanic")
+            return RedirectToAction("Index", "Login");
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            var bookings = _db.GetAllBookingsForMechanic();
-            return View(bookings);
-        }
+        string expertise = HttpContext.Session.GetString("Expertise");
 
-        [HttpPost]
-        public IActionResult UpdateStatus(int booking_id, string booking_status)
-        {
-            _db.UpdateBookingStatus(booking_id, booking_status);
-            return RedirectToAction("Index");
-        }
+        var bookings = _bookingDB.GetBookingsForMechanic(expertise);
+
+        return View(bookings);
+    }
+
+    [HttpPost]
+    public IActionResult UpdateStatus(int booking_id, string booking_status)
+    {
+        _bookingDB.UpdateBookingStatus(booking_id, booking_status);
+        return RedirectToAction("Index");
     }
 }

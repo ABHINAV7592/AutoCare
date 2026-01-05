@@ -101,5 +101,36 @@ namespace service_booking.Models
             return list;
         }
 
+        public List<Bookings> GetBookingsForMechanic(string expertise)
+        {
+            List<Bookings> list = new();
+
+            using SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand("sp_GetBookingsForMechanic", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@expertise", expertise);
+
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                list.Add(new Bookings
+                {
+                    booking_id = (int)dr["booking_id"],
+                    user_id = (int)dr["user_id"],
+                    vehicle_id = (int)dr["vehicle_id"],
+                    service_type_id = (int)dr["service_type_id"],
+                    booking_status = dr["booking_status"].ToString(),
+                    date = (DateTime)dr["date"]
+                });
+            }
+            con.Close();
+            return list;
+        }
+
+
+
     }
 }

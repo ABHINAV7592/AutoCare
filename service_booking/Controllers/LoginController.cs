@@ -6,10 +6,12 @@ namespace service_booking.Controllers
     public class LoginController : Controller
     {
         private readonly UserDB _db;
+        private readonly MechanicDB _mechanicDB;
 
-        public LoginController(UserDB db)
+        public LoginController(UserDB db, MechanicDB mechanicDB)
         {
             _db = db;
+            _mechanicDB = mechanicDB;
         }
 
         [HttpGet]
@@ -17,7 +19,6 @@ namespace service_booking.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public IActionResult Index(Login model)
@@ -33,22 +34,26 @@ namespace service_booking.Controllers
                 return View(model);
             }
 
-            HttpContext.Session.SetInt32("UserId", result.user_id); 
+            HttpContext.Session.SetInt32("UserId", result.user_id);
             HttpContext.Session.SetString("Role", result.login_type);
 
             if (result.login_type == "User")
                 return RedirectToAction("Index", "UserHome");
 
             if (result.login_type == "Mechanic")
+            {
+                string expertise = _mechanicDB.GetExpertiseByMechanicId(result.user_id);
+                HttpContext.Session.SetString("Expertise", expertise);
+
                 return RedirectToAction("Index", "MechanicHome");
+            }
 
             if (result.login_type == "Admin")
                 return RedirectToAction("Index", "AdminHome");
 
+            ViewBag.Message = "Invalid role";
             return View(model);
         }
-
-
 
         [HttpPost]
         public IActionResult Logout()
@@ -56,7 +61,5 @@ namespace service_booking.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Login");
         }
-
-
     }
 }
