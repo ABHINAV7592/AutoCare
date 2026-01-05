@@ -26,30 +26,38 @@ namespace service_booking.Models
 
             con.Open();
             cmd.ExecuteNonQuery();
+            con.Close();
         }
+
 
         public List<Bookings> GetBookingHistory(int userId)
         {
             List<Bookings> list = new();
 
             using SqlConnection con = new SqlConnection(_connectionString);
-            SqlCommand cmd = new SqlCommand("sp_GetBookingsByUser", con);
+            using SqlCommand cmd = new SqlCommand("sp_GetBookingsByUser", con);
+
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@user_id", userId);
 
             con.Open();
             SqlDataReader dr = cmd.ExecuteReader();
+
             while (dr.Read())
             {
                 list.Add(new Bookings
                 {
                     booking_id = (int)dr["booking_id"],
+                    vehicle_id = (int)dr["vehicle_id"],
+                    service_type_id = (int)dr["service_type_id"],
                     booking_status = dr["booking_status"].ToString(),
                     date = (DateTime)dr["date"]
                 });
             }
+            con.Close();
             return list;
         }
+
 
         public void UpdateBookingStatus(int bookingId, string status)
         {

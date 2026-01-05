@@ -24,18 +24,19 @@ namespace service_booking.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            int maxId = _db.GetMaxRegId();
-            int regId = maxId + 1;
-
             int count = _db.GetEmailCount(model.email, model.password);
-
             if (count > 0)
             {
                 ViewBag.Message = "Admin already exists";
                 return View(model);
             }
 
-            _db.InsertLogin(regId, model.email, model.password, "Admin");
+            _db.InsertLogin(
+                0,
+                model.email,
+                model.password,
+                "Admin"
+            );
 
             return RedirectToAction("Index", "Login");
         }

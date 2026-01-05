@@ -2,7 +2,7 @@
 {
     public class LoginResult
     {
-        public int reg_id { get; set; }
-        public string login_type { get; set; }
+        public int user_id { get; set; }
+        public string? login_type { get; set; }
     }
 }

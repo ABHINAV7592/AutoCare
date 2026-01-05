@@ -38,7 +38,7 @@ namespace service_booking.Models
             using SqlCommand cmd = new SqlCommand("sp_GetVehiclesByUser", con);
 
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@user_id", SqlDbType.Int).Value = userId;
+            cmd.Parameters.AddWithValue("@user_id", userId);
 
             con.Open();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -47,17 +47,16 @@ namespace service_booking.Models
             {
                 list.Add(new VehicleRegister
                 {
-                    vehicle_id = Convert.ToInt32(dr["vehicle_id"]),
-                    user_id = Convert.ToInt32(dr["user_id"]),
+                    vehicle_id = (int)dr["vehicle_id"],
                     vehicle_number = dr["vehicle_number"].ToString(),
                     brand = dr["brand"].ToString(),
                     model = dr["model"].ToString(),
-                    manufacturing_year = Convert.ToInt32(dr["manufacturing_year"])
+                    manufacturing_year = (int)dr["manufacturing_year"]
                 });
             }
             con.Close();
-
             return list;
         }
+
     }
 }

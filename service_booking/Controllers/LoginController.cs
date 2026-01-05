@@ -18,6 +18,41 @@ namespace service_booking.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public IActionResult Index(Login model)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return View(model);
+
+        //    var result = _db.Login(model.email, model.password);
+
+        //    if (result == null)
+        //    {
+        //        ViewBag.Message = "Invalid Email or Password";
+        //        return View(model);
+        //    }
+        //    if (result.login_type == "Admin")
+        //    {
+        //        HttpContext.Session.SetString("role", "Admin");
+        //        return RedirectToAction("Index", "AdminHome");
+        //    }
+
+        //    if (result.login_type == "User")
+        //    {
+        //        HttpContext.Session.SetString("role", "User");
+        //        return RedirectToAction("Index", "UserHome");
+        //    }
+
+        //    if (result.login_type == "Mechanic")
+        //    {
+        //        HttpContext.Session.SetString("role", "Mechanic");
+        //        return RedirectToAction("Index", "MechanicHome");
+        //    }
+
+        //    ViewBag.Message = "Invalid login type";
+        //    return View(model);
+        //}
+
         [HttpPost]
         public IActionResult Index(Login model)
         {
@@ -31,34 +66,31 @@ namespace service_booking.Controllers
                 ViewBag.Message = "Invalid Email or Password";
                 return View(model);
             }
-            if (result.login_type == "Admin")
-            {
-                HttpContext.Session.SetString("role", "Admin");
-                return RedirectToAction("Index", "AdminHome");
-            }
+
+            HttpContext.Session.SetInt32("UserId", result.user_id); 
+            HttpContext.Session.SetString("Role", result.login_type);
 
             if (result.login_type == "User")
-            {
-                HttpContext.Session.SetString("role", "User");
                 return RedirectToAction("Index", "UserHome");
-            }
 
             if (result.login_type == "Mechanic")
-            {
-                HttpContext.Session.SetString("role", "Mechanic");
                 return RedirectToAction("Index", "MechanicHome");
-            }
 
-            ViewBag.Message = "Invalid login type";
+            if (result.login_type == "Admin")
+                return RedirectToAction("Index", "AdminHome");
+
             return View(model);
         }
+
+
 
         [HttpPost]
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear();   
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Login");
         }
+
 
     }
 }

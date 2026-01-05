@@ -50,25 +50,25 @@ namespace service_booking.Models
                 }
             }
 
-            
-            public void InsertUser(string name, string phone)
-            {
-                using (SqlConnection con = new SqlConnection(_connectionString))
-                {
-                    SqlCommand cmd = new SqlCommand("sp_InsertUser", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@name", name);
-                    cmd.Parameters.AddWithValue("@phone", phone);
+        public int InsertUser(string name, string phone)
+        {
+            using SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand("sp_InsertUser", con);
+            cmd.CommandType = CommandType.StoredProcedure;
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.Parameters.AddWithValue("@phone", phone);
 
-            
-            public void InsertLogin(int regId, string email, string password, string loginType)
+            con.Open();
+            return Convert.ToInt32(cmd.ExecuteScalar());
+        }
+
+
+
+
+
+        public void InsertLogin(int regId, string email, string password, string loginType)
             {
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
@@ -87,31 +87,30 @@ namespace service_booking.Models
             }
         public LoginResult? Login(string email, string password)
         {
-            using (SqlConnection con = new SqlConnection(_connectionString))
+            using SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand("sp_Login", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@password", password);
+
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
             {
-                SqlCommand cmd = new SqlCommand("sp_Login", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@email", email);
-                cmd.Parameters.AddWithValue("@password", password);
-
-                con.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.Read())
+                return new LoginResult
                 {
-                    return new LoginResult
-                    {
-                        reg_id = Convert.ToInt32(dr["reg_id"]),
-                        login_type = dr["login_type"].ToString()
-                    };
-                }
-
-                con.Close();
-                return null; 
+                    user_id = Convert.ToInt32(dr["user_id"]),
+                    login_type = dr["login_type"].ToString()
+                };
             }
+
+            return null;
         }
 
     }
+
 }
+
 

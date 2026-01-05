@@ -10,41 +10,68 @@ namespace service_booking.Controllers
         private readonly SlotDB _slotDB;
         private readonly BookingDB _bookingDB;
 
-        public BookingController(VehicleRegDB v, ServiceDB s, SlotDB sl, BookingDB b)
+        public BookingController(
+            VehicleRegDB vehicleDB,
+            ServiceDB serviceDB,
+            SlotDB slotDB,
+            BookingDB bookingDB)
         {
-            _vehicleDB = v;
-            _serviceDB = s;
-            _slotDB = sl;
-            _bookingDB = b;
+            _vehicleDB = vehicleDB;
+            _serviceDB = serviceDB;
+            _slotDB = slotDB;
+            _bookingDB = bookingDB;
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            int userId = 1;
+            int? userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+                return RedirectToAction("Index", "Login");
 
             var vm = new BookServiceView
             {
-                Vehicles = _vehicleDB.GetVehicles(userId),
+                Vehicles = _vehicleDB.GetVehicles(userId.Value),
+
                 Services = _serviceDB.GetServices(),
                 Slots = _slotDB.GetAvailableSlots()
             };
 
             return View(vm);
         }
-
+        //
+         
         [HttpPost]
         public IActionResult Create(BookServiceView model)
         {
-            int userId = 1;
-            _bookingDB.InsertBooking(userId, model);
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Index", "Login");
+
+            // 🔴 DEBUG CHECK
+            if (model.vehicle_id == 0 || model.service_type_id == 0 || model.slot_id == 0)
+            {
+                throw new Exception(
+                    $"Binding failed: V={model.vehicle_id}, S={model.service_type_id}, Slot={model.slot_id}"
+                );
+            }
+
+            _bookingDB.InsertBooking(userId.Value, model);
             return RedirectToAction("History");
         }
 
+
+        [HttpGet]
         public IActionResult History()
         {
-            int userId = 1;
-            var history = _bookingDB.GetBookingHistory(userId);
+            int? userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+                return RedirectToAction("Index", "Login");
+
+            var history = _bookingDB.GetBookingHistory(userId.Value);
+
             return View(history);
         }
     }

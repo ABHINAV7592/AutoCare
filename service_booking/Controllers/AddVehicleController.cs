@@ -22,23 +22,31 @@ namespace service_booking.Controllers
         public IActionResult Add(VehicleRegister mod)
         {
             if (!ModelState.IsValid)
-            {
                 return View(mod);
-            }
 
-            mod.user_id = 1;
+            int? userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+                return RedirectToAction("Index", "Login");
+
+            mod.user_id = userId.Value;  
 
             _db.InsertVehicle(mod);
 
-            return RedirectToAction(nameof(List));
+            return RedirectToAction("List");
         }
+
 
         [HttpGet]
         public IActionResult List()
         {
-            int userId = 1;
-            var vehicles = _db.GetVehicles(userId);
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Index", "Login");
+
+            var vehicles = _db.GetVehicles(userId.Value);
             return View(vehicles);
         }
+
     }
 }
